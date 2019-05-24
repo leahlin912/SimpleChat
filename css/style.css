@@ -1,0 +1,62 @@
+body{
+    /* background-color:linear-gradient(135deg,#EBF3FC,#DEEAF8); */
+    background-color:#f5c0a6; 
+    padding-top: 30px;
+    text-align: center;
+    font-family: 'Dosis', sans-serif;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size:100% 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#status{
+    color: white;
+    font-size: 28px; 
+    height: 100px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom:  3px solid white;
+}
+
+.status_disconnected{
+    background-color:#fa5e1d;
+}
+
+.status_connected{
+    background-color:#77787b;
+}
+
+#content{
+    padding-top: 20px;
+}
+
+#inputBox{
+    height: 150px;
+    width: 300px;
+}
+
+#chatArea{
+    border-top:3px solid white;
+    margin-top:20px;
+    background-color: #F1F1F1; 
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#logArea{
+    width: 50%;
+    border-right: 3px solid white;;
+}
+
+#resArea{
+    width: 50%;
+}
+
+small{
+    font-size: 12px;
+    color: #77787b;
+}

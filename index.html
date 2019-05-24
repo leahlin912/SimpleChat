@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Simple Chat</title>
+</head>
+<body>
+    <div>
+        <div id='status' class="status_disconnected"><b style="color: white">Disconected</b></div>
+        <div id='content'>
+            <span>User:</span>
+            <select id='user'>
+                <option>Amy</option>
+                <option>Bora</option>
+                <option>Cherry</option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <textarea id='inputBox' type='text' placeholder="Input message here"></textarea>
+        </div>
+        <button>Send</button>
+        <div id='chatArea'>
+            <div id='logArea'></div>
+            <div id='resArea'></div>
+        </div>
+        
+    </div>
+    <script>
+        var sock = new WebSocket('ws://localhost:5001');
+        
+        sock.onopen = function(event){
+            setTimeout(function(){
+                document.getElementById('status').setAttribute('class','status_connected');
+                document.getElementById('status').innerHTML = 
+                "<b>Connected</b>";
+            },3000)
+            
+
+            
+            
+            document.querySelector('button').onclick = function(){
+                var date = new Date();
+                var data = {
+                    user: document.getElementById('user').value,
+                    msg: document.getElementById('inputBox').value,
+                    time: date.getTime(),
+                }
+                sock.send(JSON.stringify(data));
+                document.getElementById('inputBox').value = '';
+            }
+            
+            sock.onmessage = function(event){
+                console.log(event.data);
+                var newEvent = JSON.parse(event.data);
+
+                switch(newEvent.type){
+                    case 'request':
+                        var time = new Date(newEvent.time).toLocaleTimeString();
+                        console.log(time);
+                        document.getElementById('logArea').innerHTML += 
+                        '<p>'+newEvent.user+':<b>'+newEvent.msg+'</b><small>'+time+'</small></p></br>';
+                        break;
+                    case 'response':
+                        var time = new Date().toLocaleTimeString();
+                        document.getElementById('resArea').innerHTML += '<p><b>'+newEvent.msg+'</b><small>'+time+'</small></p></br>';
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            
+        }
+        
+        
+        
+        // var mySocket = new WebSocket('wss://echo.websocket.org');
+        // var time = new Date();
+        // console.log(time);
+        // mySocket.onopen = function(){
+        //     var msg = {
+        //         type:'message',
+        //         text:document.getElementById('text').textContent,
+        //         id:'clientID',
+        //         date:time.getTime(),
+        //     };
+            
+        //     console.log('date:'+JSON.stringify(msg.date));  
+        //     mySocket.send(JSON.stringify(msg));
+        // }
+
+        // mySocket.onmessage = function(event){
+        //     setTimeout(function(){
+        //         document.getElementById('text').innerHTML = "<b>Message already sent.</b>";
+        //     },1000);
+
+        //     console.log(event);
+        //     var f = document.getElementById('chatbox');
+        //     var text = '';
+        //     var msg = JSON.parse(event.data);
+        //     var time = new Date(msg.date);
+        //     var timeStr = time.toLocaleTimeString();
+
+        //     switch(msg.type){
+        //         case 'id':
+        //             clientID = msg.id;
+        //             setUserName();
+        //             break;
+        //         case 'message':
+        //             text = "使用者 <em>" + msg.id + "</em> :<b>"+msg.text+"<br></b>"+"<small>登入於 "+ timeStr + "</small><br>";
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        //     if(text.length){
+        //         setTimeout(function(){
+        //             document.getElementById('chatbox').innerHTML = text;
+        //         },2000);
+        //     }
+        // }
+    </script>
+</body>
+</html>
