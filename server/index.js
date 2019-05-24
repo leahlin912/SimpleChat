@@ -75,11 +75,9 @@ wss.on('connection',function(ws){
                     }
                 });
             }
-            
         });
-    })
-
-})
+    });
+});
 
 // wss.on('connection', function (ws) {
 //     console.log(`[SERVER] connection()`);

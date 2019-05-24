@@ -23,28 +23,7 @@
             <textarea id='inputBox' type='text' placeholder="Input message here"></textarea>
         </div>
         <button>Send</button>
-        <div id='chatArea'>
-            <!-- <div class='newArea'>
-                <div id='logArea'>
-                    <div class="card">llll</div>
-                </div>
-                <div id='logArea'>
-                    <div class="card">llll</div>
-                </div>
-                <div id='resArea'>
-                        <div class="card">rrr</div>
-                    </div>
-                <div id='resArea'>rrrr</div>
-                <div class="clearFloat"></div>
-                <div id='resArea'>rrrrr</div>
-                <div class="clearFloat"></div>
-                <div id='resArea'>rrrrr</div>
-                <div class="clearFloat"></div>
-                <div id='logArea'>llll</div>
-            </div> -->
-            
-        </div>
-        
+        <div id='chatArea'></div>   
     </div>
     <script>
         var sock = new WebSocket('ws://localhost:5001');
@@ -55,9 +34,6 @@
                 document.getElementById('status').innerHTML = 
                 "<b>Connected</b>";
             },3000)
-            
-
-            
             
             document.querySelector('button').onclick = function(){
                 var date = new Date();
@@ -103,9 +79,6 @@
                         break;
                 }
             };
-
-
-            
         }
         
         
