@@ -24,8 +24,25 @@
         </div>
         <button>Send</button>
         <div id='chatArea'>
-            <div id='logArea'></div>
-            <div id='resArea'></div>
+            <!-- <div class='newArea'>
+                <div id='logArea'>
+                    <div class="card">llll</div>
+                </div>
+                <div id='logArea'>
+                    <div class="card">llll</div>
+                </div>
+                <div id='resArea'>
+                        <div class="card">rrr</div>
+                    </div>
+                <div id='resArea'>rrrr</div>
+                <div class="clearFloat"></div>
+                <div id='resArea'>rrrrr</div>
+                <div class="clearFloat"></div>
+                <div id='resArea'>rrrrr</div>
+                <div class="clearFloat"></div>
+                <div id='logArea'>llll</div>
+            </div> -->
+            
         </div>
         
     </div>
@@ -52,7 +69,7 @@
                 sock.send(JSON.stringify(data));
                 document.getElementById('inputBox').value = '';
             }
-            
+
             sock.onmessage = function(event){
                 console.log(event.data);
                 var newEvent = JSON.parse(event.data);
@@ -60,18 +77,33 @@
                 switch(newEvent.type){
                     case 'request':
                         var time = new Date(newEvent.time).toLocaleTimeString();
-                        console.log(time);
-                        document.getElementById('logArea').innerHTML += 
-                        '<p>'+newEvent.user+':<b>'+newEvent.msg+'</b><small>'+time+'</small></p></br>';
+                        var logArea = document.getElementById('chatArea'); 
+                        var newArea = document.createElement('div');
+                        newArea.innerHTML = "<div id='logArea'><div class='card'>"+"<p>"+newEvent.user+":<b>"+newEvent.msg+"</b><small>"+time+"</small></p></br></div></div>";
+
+                        logArea.appendChild(newArea);
                         break;
+                        
                     case 'response':
-                        var time = new Date().toLocaleTimeString();
-                        document.getElementById('resArea').innerHTML += '<p><b>'+newEvent.msg+'</b><small>'+time+'</small></p></br>';
+                        var time = new Date(newEvent.time).toLocaleTimeString();
+                        var resArea = document.getElementById('chatArea');
+                        var newArea = document.createElement('div');
+                        newArea.innerHTML = "<div id='resArea'><div class='card'>"+"<p>"+newEvent.user+":<b>"+newEvent.msg+"</b><small>"+time+"</small></p></br></div></div>";
+                        resArea.appendChild(newArea);
+                        break;
+
+                    case 'notify':
+                        var time = new Date(newEvent.time).toLocaleTimeString();
+                        var resArea = document.getElementById('chatArea');
+                        var newArea = document.createElement('div');
+                        newArea.innerHTML = "<div id='resArea'><div class='card'>"+"<p>"+newEvent.user+":<b>"+newEvent.msg+"</b><small>"+time+"</small></p></br></div></div>";
+                        resArea.appendChild(newArea);
                         break;
                     default:
                         break;
                 }
-            }
+            };
+
 
             
         }

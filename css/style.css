@@ -40,20 +40,33 @@ body{
 
 #chatArea{
     border-top:3px solid white;
-    margin-top:20px;
+    /* margin-top:10px; */
     background-color: #F1F1F1; 
-    display:flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    width:100%;
+    margin:0 auto;
 }
 
 #logArea{
+    position: relative;
     width: 50%;
-    border-right: 3px solid white;;
+    left:0;
+    border-right: 3px solid white;
 }
 
 #resArea{
+    position: relative;
     width: 50%;
+    left: 50%;
+    border-left: 3px solid white;
+}
+
+.card{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 small{
